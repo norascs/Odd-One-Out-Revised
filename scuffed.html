@@ -29,3 +29,6 @@
   var shuffledQuestions = shuffleSequence(questions);
   timeline.push(shuffleSequence);
   timeline.push(shuffledQuestions); [shuffle questions] -->
+
+[.json conversion]
+var data = [{ "col1": "value1", "col2": "value2" }, { "col1": "value", "col2": "value" }]; var filename = "data.csv"; saveAs(new Blob([JSON.stringify(data, null, 2)], { type: 'text/csv;charset=utf-8' }), filename);
