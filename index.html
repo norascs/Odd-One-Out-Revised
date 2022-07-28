@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Load JS psych -->
+        <script src="jspsych-7.2/jspsych.js"></script>
+
+        <!-- Load all the plugins we will be using today -->
+       <script src="https://unpkg.com/jspsych@7.2.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.1.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.1.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-button-response@1.1.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-audio-button-response@1.1.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.1.1"></script>
+
+    <script src="https://unpkg.com/@jspsych/plugin-survey-likert@1.1.1"></script>
+
+
+        <link href="https://unpkg.com/jspsych@7.2.3/css/jspsych.css" rel="stylesheet" type="text/css" />
+
+    </head>
+    <body>
+    </body>
+    <script>
+
+
+
+var jsPsych = initJsPsych();
+
+var timeline = [];
+var save_data = [];
+
+
+
+
+var welcome = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: 'Welcome to my study! Press enter to begin.',
+    choices: ['enter']
+};
+timeline.push(welcome)
+var instructions = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
+      <h1>Instructions</h1>
+        <p>You will be asked to look over word pairs and give a similarity judgement. These are concrete action verbs parent likely say to their children in a
+tov-play context. Your job is to carefully rate the similaritv of the two words on a scale from 1 to 7 (1 = Not similar at all. 7= Almost identical).
+The study session will last 20 or so minutes, so please make sure you have enough time to finish the study in one session. There will be no breaks in between the study.
+Press any key to begin.</p>
+<h4>Press any key to begin.</h4>
+
+        <div style='width: 700px;'>
+        <div style='float: left;'>
+      `,
+    };
+    // trial_duration: 1000,
+    timeline.push(instructions);
+
+ 
+
+
+var shuffleOrder = jsPsych.randomization.shuffle(['Not at all similar', 'Neutral', 'Similar ']);
+
+var trial1 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `
+        <p> How similar are the words <strong>articles</strong>, <strong>car</strong>, and <strong> thank </strong>?</p>
+      `, 
+  choices: shuffleOrder,
+};
+timeline.push(trial1);
+
+
+
+// var likert_scale = [
+// "Not similar at all",
+//         "Slightly similar", 
+//         "Moderately similar",
+//         "Fairly similar",
+//         "Quite similar",
+//         "Very similar"
+// ];
+
+//Multiple Choice
+// var trial4 = {
+//   type: jsPsychSurveyLikert,
+//   questions: [
+//     {prompt: "I like vegetables.", name: 'Vegetables', labels: likert_scale},
+//     {prompt: "I like fruit.", name: 'Fruit', labels: likert_scale},
+//     {prompt: "I like meat.", name: 'Meat', labels: likert_scale},
+//   ],
+//   randomize_question_order: true
+// };
+// timeline.push(trial4)
+
+var comprehension = {
+  type: jsPsychSurveyText,
+  questions: [
+    {prompt: 'What is 10+14?'}
+  ]
+}
+timeline.push(comprehension);
+
+
+var shuffleOrder = jsPsych.randomization.shuffle(['Not at all similar', 'Neutral', 'Similar ']);
+
+var trial2 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `
+        <p> How similar are the words <strong>articles</strong>, <strong>car</strong>, and <strong> thank </strong>?</p>
+      `, 
+  choices: shuffleOrder,
+};
+timeline.push(trial2);
+
+
+var shuffleOrder = jsPsych.randomization.shuffle(['Not at all similar', 'Neutral', 'Similar ']);
+
+var trial3 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `
+        <p> How similar are the words <strong>articles</strong>, <strong>car</strong>, and <strong> thank </strong>?</p>
+      `, 
+  choices: shuffleOrder,
+};
+timeline.push(trial3);
+
+
+var shuffleOrder = jsPsych.randomization.shuffle(['Not at all similar', 'Neutral', 'Similar ']);
+
+var trial4 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `
+        <h3>Comprehension Check</h3>
+        <p> How similar are the words <strong>articles</strong>, <strong>car</strong>, and <strong> thank </strong>?</p>
+      `, 
+  choices: shuffleOrder,
+};
+timeline.push(trial4);
+
+
+var ending = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
+        <p>Thank you, the experiment is now over. You may close this tab.</p>
+        <div style='width: 700px;'>
+        <div style='float: left;'>
+      `,
+      choices: ['enter'],
+      on_finish: function() {
+jsPsych.data.displayData();
+
+      }
+    };
+    timeline.push(ending);
+
+  
+jsPsych.run(timeline);
+
+</script>
+</html>
